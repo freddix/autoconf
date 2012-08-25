@@ -1,0 +1,11 @@
+--- autoconf-2.58/lib/autoconf/c.m4.orig	Thu Sep 25 09:28:51 2003
++++ autoconf-2.58/lib/autoconf/c.m4	Mon Nov 17 10:54:37 2003
+@@ -640,7 +640,7 @@
+ fi
+ AC_MSG_RESULT([$CXXCPP])
+ _AC_PROG_PREPROC_WORKS_IFELSE([],
+-	  [AC_MSG_FAILURE([C++ preprocessor "$CXXCPP" fails sanity check])])
++	  [AC_MSG_WARN([C++ preprocessor "$CXXCPP" fails sanity check])])
+ AC_SUBST(CXXCPP)dnl
+ AC_LANG_POP(C++)dnl
+ ])# AC_PROG_CXXCPP

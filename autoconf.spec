@@ -1,14 +1,16 @@
+%bcond_without	tests
+
 %include	/usr/lib/rpm/macros.perl
 
 Summary:	GNU autoconf - source configuration tools
 Name:		autoconf
-Version:	2.68
-Release:	4
+Version:	2.69
+Release:	2
 License:	GPL
 Group:		Development/Building
 # stable releases:
-Source0:	ftp://ftp.gnu.org/gnu/autoconf/%{name}-%{version}.tar.bz2
-# Source0-md5:	864d785215aa60d627c91fcb21b05b07
+Source0:	ftp://ftp.gnu.org/gnu/autoconf/%{name}-%{version}.tar.xz
+# Source0-md5:	50f97f4159805e374639a73e2636f22e
 Patch0:		%{name}-AC_EGREP.patch
 Patch1:		%{name}-cxxcpp-warnonly.patch
 URL:		http://www.gnu.org/software/autoconf/
@@ -56,8 +58,10 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT \
 
+%if %{with tests}
 %check
 %{__make} -j1 check
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT

@@ -5,7 +5,7 @@
 Summary:	GNU autoconf - source configuration tools
 Name:		autoconf
 Version:	2.69
-Release:	2
+Release:	3
 License:	GPL
 Group:		Development/Building
 # stable releases:
@@ -66,10 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p	/sbin/postshell
+%post	-p /usr/sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-p	/sbin/postshell
+%postun	-p /usr/sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
 %files

@@ -1,0 +1,45 @@
+--- tests/local.at~	2013-10-15 13:49:09.403970117 +0200
++++ tests/local.at	2013-10-15 13:50:05.868721901 +0200
+@@ -274,7 +274,7 @@ m4_define([AT_CHECK_CONFIGURE],
+ #   Set by AC_OUTPUT.
+ # - AC_SUBST'ed variables
+ #   (FIXME: Generate a list of these automatically.)
+-# - _|@|.[*#?$].|argv|ARGC|LINENO|OLDPWD|PIPESTATUS|RANDOM|SECONDS
++# - _|@|.[*#?$].|argv|ARGC|LINENO|OLDPWD|PIPESTATUS|RANDOM|SECONDS|BASHPID|EPOCHREALTIME
+ #   Some variables some shells use and change.
+ #   `.[*#?$].' catches `$#' etc. which are displayed like this:
+ #      | '!'=18186
+@@ -324,7 +324,7 @@ if test -f state-env.before && test -f s
+       [AWK|LEX|LEXLIB|LEX_OUTPUT_ROOT|LN_S|M4|MKDIR_P|RANLIB|SET_MAKE|YACC],
+       [GREP|[EF]GREP|SED],
+       [[_@]|.[*#?$].],
+-      [argv|ARGC|LINENO|OLDPWD|PIPESTATUS|RANDOM|SECONDS]))=' \
++      [argv|ARGC|LINENO|OLDPWD|PIPESTATUS|RANDOM|SECONDS|BASHPID|EPOCHREALTIME]))=' \
+      $act_file ||
+        test $? -eq 1 || echo failed >&2
+     ) 2>stderr-$act_file |
+@@ -351,11 +351,13 @@ fi
+ # - ^ac_, excluding ^ac_cv_
+ #   Autoconf's private shell name space.
+ # - PPID [bash, zsh]
+-# - RANDOM [zsh]
++# - RANDOM [zsh, mksh]
+ # - SECONDS [zsh]
+ # - '$' [zsh]
+ # - argv [zsh]
+ # - ARGC [zsh]
++# - BASHPID [bash, mksh]
++# - EPOCHREALTIME [zsh, mksh]
+ #
+ # Furthermore, it is okay for a non-cache variable initialized to empty in one
+ # run to be unset in another run.  This happens when, for example, cache update
+@@ -378,6 +380,8 @@ do
+ 	/^PPID=/ d
+ 	/^RANDOM=/ d
+ 	/^SECONDS=/ d
++	/^BASHPID=/ d
++	/^EPOCHREALTIME=/ d
+ 	/'\'\\\$\''=/ d
+ 	/^argv=/ d
+ 	/^ARGC=/ d
+

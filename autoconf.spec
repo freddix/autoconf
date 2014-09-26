@@ -1,3 +1,5 @@
+# based on PLD Linux spec git://git.pld-linux.org/packages/.git
+
 %bcond_without	tests
 
 %include	/usr/lib/rpm/macros.perl
@@ -5,7 +7,7 @@
 Summary:	GNU autoconf - source configuration tools
 Name:		autoconf
 Version:	2.69
-Release:	3
+Release:	4
 License:	GPL
 Group:		Development/Building
 # stable releases:
@@ -13,7 +15,9 @@ Source0:	ftp://ftp.gnu.org/gnu/autoconf/%{name}-%{version}.tar.xz
 # Source0-md5:	50f97f4159805e374639a73e2636f22e
 Patch0:		%{name}-AC_EGREP.patch
 Patch1:		%{name}-cxxcpp-warnonly.patch
+Patch2:		%{name}-mksh.patch
 URL:		http://www.gnu.org/software/autoconf/
+BuildRequires:	gcc-fortran
 BuildRequires:	m4
 BuildRequires:	rpm-perlprov
 BuildRequires:	texinfo
@@ -45,6 +49,7 @@ use.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p0
 
 %build
 %configure \
@@ -60,7 +65,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{with tests}
 %check
-%{__make} -j1 check
+export SHELL=/bin/bash
+%{__make} check
 %endif
 
 %clean

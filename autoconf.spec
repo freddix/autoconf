@@ -65,7 +65,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{with tests}
 %check
-export SHELL=/bin/bash
 %{__make} check
 %endif
 
